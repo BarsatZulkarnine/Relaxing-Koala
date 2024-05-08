@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color: #1a130e; /* deep brown */
+  --text-color: #f4e8d1; /* off-white cream */
+  --accent-color: #c19a6b; /* gold */
+  --secondary-accent-color: #3e2c1e; /* dark brown */
+  --light-accent-color: #f4e8d1; /* light cream */
+}
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.container {
+    max-width: 1200px; /* Limit the maximum width */
+    margin: 0 auto; /* Center horizontally */
+    padding: 0 20px; /* Add some padding on both sides */
+  }
+  
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+  }
+  
+  /* Additional styles to ensure proper alignment and appearance */
+  footer {
+    width: 100%;
+    text-align: center; /* Centers the text of navigation and footer */
+  }
+  
+  .section {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the content of sections */
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .footer{
+    text-align: left;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 10px;
+    }
+  }
