@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <main class="bg-gray-50 dark:bg-gray-900 py-12 md:py-16 lg:py-20">
+    <main class="bg-gray-50 py-12 md:py-16 lg:py-20">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-4 md:mb-6">Menu</h2>
         <div class="flex justify-between items-center mb-6">

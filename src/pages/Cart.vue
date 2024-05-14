@@ -4,12 +4,12 @@
       <div>
         <h1 class="text-2xl font-bold mb-4">Your Cart</h1>
         <div class="border rounded-lg overflow-hidden">
-          <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 font-bold">Items</div>
+          <div class="bg-gray-100 px-4 py-3 font-bold">Items</div>
           <div class="divide-y dark:divide-gray-700">
             <div v-for="item in cartItems" :key="item.id" class="grid grid-cols-[1fr_80px_80px] items-center px-4 py-3">
               <div>
                 <h3 class="font-bold">{{ item.name }}</h3>
-                <p class="text-gray-500 dark:text-gray-400 text-sm">{{ item.description }}</p>
+                <p class="text-gray-500 text-sm">{{ item.description }}</p>
               </div>
               <div class="flex items-center">
                 <button @click="decrementQuantity(item)" class="text-xl mr-2 font-bold font-serif">-</button>
@@ -33,7 +33,7 @@
           <div>
             <label class="block mb-1 font-medium" for="name">Full Name</label>
             <input
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
               id="name"
               placeholder="Enter your full name"
               type="text"
@@ -45,7 +45,7 @@
           <div>
             <label class="block mb-1 font-medium" for="phone">Phone Number</label>
             <input
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
               id="phone"
               placeholder="Enter your phone number"
               type="tel"
@@ -57,7 +57,7 @@
           <div>
             <label class="block mb-1 font-medium" for="address">Address</label>
             <textarea
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
               id="address"
               placeholder="Enter your delivery address"
               rows="3"
