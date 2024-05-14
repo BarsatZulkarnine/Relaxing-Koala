@@ -1,5 +1,5 @@
 <template>
-     <footer class="bg-gray-100 py-6 w-full text-sm">
+     <footer class="bg-lime-50 py-6 w-full text-sm">
   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
     <div class="grid gap-1 text-left ">
       <h3 class="font-semibold">Relaxing Koala</h3>

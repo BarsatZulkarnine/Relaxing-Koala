@@ -43,7 +43,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: Admin,
-      meta: { requiresAdmin: true } // Add a meta field to indicate that this route requires admin access
+      meta: { requiresAdmin: true } 
     },
     {
       path: '/cart',

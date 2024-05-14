@@ -11,8 +11,8 @@
         <nav class="grid items-start px-4 pl-16 text-sm font-medium">
           <!-- Other existing links -->
           <router-link
-            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 cursor-not-allowed"
-            to="#" @click.prevent>
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 "
+            to="#" @click="activeComponent = 'orders'">
             <font-awesome-icon icon="shopping-cart" class="h-4 w-4" />
             Order Management
           </router-link>
@@ -53,9 +53,10 @@ const activeComponent = ref('dashboard'); // Default active component
 
 const dashboardComponent = defineAsyncComponent(() => import('@/components/AdminDashboard.vue'));
 const menuManagementComponent = defineAsyncComponent(() => import('@/components/AdminMenuManagement.vue'));
-
+const ordersComponent = defineAsyncComponent(() => import('@/components/Orders.vue'));
 const components = {
   dashboard: dashboardComponent,
-  menuManagement: menuManagementComponent
+  menuManagement: menuManagementComponent,
+  orders: ordersComponent
 };
 </script>

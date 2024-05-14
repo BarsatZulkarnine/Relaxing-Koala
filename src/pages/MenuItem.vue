@@ -40,8 +40,8 @@
               </ul>
             </div>
           </div>
-          <Button label="Add to Cart" class="p-button-primary bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded
-          " @click="addToCart" />
+          <Button v-if="isSignedIn" label="Add to Cart" class="p-button-primary bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" @click="addToCart" />
+          <router-link v-else to="/signin">Sign In to Add to Cart</router-link>
         </div>
       </div>
     </main>
@@ -55,12 +55,13 @@ import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
 import Button from 'primevue/button';
 import Footer from '@/components/Footer.vue';
+import { db } from '../firebase';
+import {collection, getDoc, doc, setDoc, } from 'firebase/firestore';
 
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
-// Access menuItems from the Vuex store
 const menuItems = computed(() => store.state.menu.menuItems);
 
 const item = computed(() => {
@@ -68,18 +69,45 @@ const item = computed(() => {
   return menuItems.value.find(item => item.id === itemId);
 });
 
-const addToCart = () => {
-  store.commit('cart/addToCart', item.value); // Assuming you have a mutation in your store to add items to the cart
-  console.log(store.state.cart.cartItems);
-  //router.push('/cart'); // Redirect to the cart page
+const isSignedIn = computed(() => store.getters.isSignedIn);
+
+const addToCart = async () => {
+  if (!isSignedIn.value) {
+    router.push('/signin');
+    return;
+  }
+
+  const userData = store.getters.userData;
+  const uid = userData.uid.toString();
+  const userCartRef = doc(db, 'userCart', uid);
+
+  const newItem = { ...item.value, quantity: 1 };
+
+  try {
+    const userCartSnapshot = await getDoc(userCartRef);
+    if (userCartSnapshot.exists()) {
+      const existingCart = userCartSnapshot.data();
+      if (existingCart[item.value.id]) {
+        existingCart[item.value.id].quantity++;
+      } else {
+        existingCart[item.value.id] = newItem;
+      }
+      await setDoc(userCartRef, existingCart);
+    } else {
+      const initialCart = { [item.value.id]: newItem };
+      await setDoc(userCartRef, initialCart);
+    }
+
+    store.commit('cart/addToCart', item.value);
+    router.push('/cart');
+  } catch (error) {
+    console.error('Error adding item to cart: ', error);
+  }
 };
 
-if (!item.value) {
-  console.error('Item not found');
-}
+
+
 </script>
-
-
 
 <style scoped>
 .container {
