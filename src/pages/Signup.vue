@@ -38,7 +38,7 @@
                 </div>
             </form>
             <p class="mt-4 text-center text-md text-gray-600">
-                Already have an account? <router-link to="/login" class="font-medium text-black hover:text-gray-900">Sign In</router-link>
+                Already have an account? <router-link to="/signin" class="font-medium text-black hover:text-gray-900">Sign In</router-link>
             </p>
         </div>
     </div>
