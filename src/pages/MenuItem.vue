@@ -16,7 +16,7 @@
           <h1 class="text-3xl font-bold">{{ item.name }}</h1>
           <p class="text-gray-700">{{ item.description }}</p>
           <div class="flex items-center justify-between">
-            <span class="text-2xl font-bold">{{ item.price  }}</span>
+            <span class="font-serif text-2xl font-bold">${{ item.price  }}</span>
           </div>
           <div class="flex flex-auto grid-cols-2 gap-6 mt-6">
             <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <Button v-if="isSignedIn" label="Add to Cart" class="p-button-primary bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" @click="addToCart" />
-          <router-link v-else to="/signin">Sign In to Add to Cart</router-link>
+          <router-link v-else to="/signin" class="font-bold">Sign In to Add to Cart</router-link>
         </div>
       </div>
     </main>
@@ -50,13 +50,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import {  computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
 import Button from 'primevue/button';
 import Footer from '@/components/Footer.vue';
 import { db } from '../firebase';
-import {collection, getDoc, doc, setDoc, } from 'firebase/firestore';
+import { getDoc, doc, setDoc, } from 'firebase/firestore';
 
 const store = useStore();
 const route = useRoute();
@@ -98,7 +98,7 @@ const addToCart = async () => {
       await setDoc(userCartRef, initialCart);
     }
 
-    store.commit('cart/addToCart', item.value);
+    //store.commit('cart/addToCart', item.value);
     router.push('/cart');
   } catch (error) {
     console.error('Error adding item to cart: ', error);

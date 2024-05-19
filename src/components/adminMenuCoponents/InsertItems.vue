@@ -35,7 +35,7 @@
 
 import { ref } from 'vue';
 import { db, storage } from '@/firebase'; 
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Dropdown from 'primevue/dropdown';
 const formData = ref({
@@ -59,15 +59,24 @@ async function handleSubmit() {
     return;
   }
 
-  const imageRef = storageRef(storage, `menuItems/${formData.value.image.name}`);
   try {
+    // Check if ID already exists
+    const q = query(collection(db, 'menuItems'), where('id', '==', formData.value.id.toString()));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      alert("ID in use. Please use a different ID.");
+      return;
+    }
+
+    const imageRef = storageRef(storage, `menuItems/${formData.value.image.name}`);
+
     // Upload the file and metadata
     const snapshot = await uploadBytes(imageRef, formData.value.image);
     const imageUrl = await getDownloadURL(snapshot.ref);
 
     // Add data to Firestore
     const docRef = await addDoc(collection(db, 'menuItems'), {
-      id: formData.value.category.id.toString(),
+      id: formData.value.id.toString(),
       category: formData.value.category.name,
       name: formData.value.name,
       description: formData.value.description,
@@ -78,7 +87,7 @@ async function handleSubmit() {
     // Clear the form or give feedback
     console.log("Document written with ID: ", docRef.id);
     alert("Item added successfully!");
-    formData.value = { category: '', name: '', description: '', price: '', image: null };
+    formData.value = { id: null, category: null, name: '', description: '', price: '', image: null };
   } catch (e) {
     console.error("Error adding document: ", e);
     alert("Error processing your request.");

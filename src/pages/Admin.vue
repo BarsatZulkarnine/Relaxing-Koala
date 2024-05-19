@@ -40,14 +40,9 @@
 </template>
 
 <script setup>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUtensils, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { ref } from 'vue'
 import { defineAsyncComponent } from 'vue'
  
-
-library.add(faUtensils, faSearch)
 
 const activeComponent = ref('dashboard'); // Default active component
 

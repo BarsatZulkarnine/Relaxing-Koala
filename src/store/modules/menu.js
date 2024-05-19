@@ -15,7 +15,7 @@ const mutations = {
 
 const actions = {
   async fetchMenuItems({ commit }) {
-    console.log('Fetching menu items');
+    
     const querySnapshot = await getDocs(collection(db, 'menuItems'));
     const items = [];
     for (const doc of querySnapshot.docs) {

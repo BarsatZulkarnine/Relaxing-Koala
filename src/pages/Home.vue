@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="  min-h-screen">
     <!-- Main section -->
-    <main class="flex-1">
+    <main class="">
       <!-- Hero section -->
       <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48">
         <!-- Hero content -->
@@ -35,12 +35,12 @@
               </p>
             </div>
             <!-- Dishes grid -->
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <!-- Display dishes -->
               <div v-for="dish in dishes" :key="dish.id" class="rounded-lg bg-white shadow">
                 <img
                   :alt="dish.name"
-                  class="h-[200px] w-full rounded-t-lg object-cover"
+                  class="h-[300px] w-full rounded-t-lg object-cover"
                   :src="dish.image"
                 />
                 <div class="p-4">
@@ -60,7 +60,7 @@
         <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
           Reserve a Seat
         </h2>
-        <p class="max-w-[600px] text-gray-500 md:text-xl lg:text-base xl:text-xl dark:text-gray-400">
+        <p class="max-w-[600px] md:text-xl lg:text-base xl:text-xl dark:text-gray-400">
           Book your table at Relaxing Koala today. We'll have it ready for you.
         </p>
       </div>

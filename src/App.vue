@@ -6,7 +6,7 @@
       <span class="ml-2 text-lg font-semibold">Relaxing Koala</span>
     </router-link>
 
-    <!-- Navigation Links -->
+    <!-- Nav Links -->
     <nav class="ml-auto flex gap-4 sm:gap-6">
       <router-link class="text-base font-medium hover:underline underline-offset-4" to="/menu">Menu</router-link>
       <router-link class="text-base font-medium hover:underline underline-offset-4" to="/cart">Cart</router-link>

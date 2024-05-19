@@ -92,11 +92,11 @@ const total = ref(0);
 const fullName = ref('');
 const phoneNumber = ref('');
 const address = ref('');
-
+const userData = store.getters.userData;
 
 const incrementQuantity = async (item) => {
-  const userData = store.getters.userData;
-  if (userData && userData.uid) {
+  
+  if (userData) {
     const uid = userData.uid.toString();
     const userCartRef = doc(db, 'userCart', uid);
 
@@ -119,8 +119,8 @@ const incrementQuantity = async (item) => {
 };
 
 const decrementQuantity = async (item) => {
-  const userData = store.getters.userData;
-  if (userData && userData.uid) {
+  
+  if (userData ) {
     const uid = userData.uid.toString();
     const userCartRef = doc(db, 'userCart', uid);
 
@@ -143,8 +143,8 @@ const decrementQuantity = async (item) => {
 };
 
 watchEffect(() => {
-  const userData = store.getters.userData;
-  if (userData && userData.uid) {
+ 
+  if (userData) {
     const uid = userData.uid.toString();
     
     const userCartRef = doc(db, 'userCart', uid);
@@ -169,8 +169,8 @@ const submitCheckout = async () => {
     return;
   }
 
-  const userData = store.getters.userData;
-  if (userData && userData.uid) {
+
+  if (userData) {
     const uid = userData.uid.toString();
     
     const userCartRef = doc(db, 'userCart', uid);
@@ -204,6 +204,3 @@ const submitCheckout = async () => {
 
 </script>
 
-<style scoped>
-/* Add your custom styles here */
-</style>

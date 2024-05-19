@@ -1,12 +1,11 @@
 import { createStore } from 'vuex';
 import menu from './modules/menu'; 
-import cart from './modules/cart';
+
 
 export default createStore({
 
   modules: {
     menu,
-    cart,
   },
   state() {
     return {

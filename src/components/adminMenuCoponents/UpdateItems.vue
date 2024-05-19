@@ -1,100 +1,97 @@
 <template>
-  <div>
-    <h2>Menu Items</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Category</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Image</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="menuItem in menuItems" :key="menuItem.id">
-          <td>{{ menuItem.id }}</td>
-          <td>{{ menuItem.category }}</td>
-          <td>{{ menuItem.name }}</td>
-          <td>{{ menuItem.description }}</td>
-          <td>{{ menuItem.price }}</td>
-          <td>
-            <img :src="menuItem.image" alt="Menu Item" style="max-width: 100px; max-height: 100px;">
-          </td>
-          <td>
-            <button @click="editMenuItem(menuItem)">Edit</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Update Form Modal -->
-    <div v-if="editedItem">
-      <h3>Edit Menu Item</h3>
+  <div class="menu-item-form">
+    <form @submit.prevent="handleSubmit" class="form-grid">
       <div class="form-group">
-        <label for="editId">Id</label>
-        <input type="text" class="form-control" id="editId" v-model="editedItem.id" />
+        <label for="name" class="form-label text-base">Name</label>
+        <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item" @change="fetchMenuItem" />
       </div>
       <div class="form-group">
-        <label for="editCategory">Category</label>
-        <input type="text" class="form-control" id="editCategory" v-model="editedItem.category" />
+        <label for="category" class="form-label text-base">Category</label>
+        <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category" />
       </div>
       <div class="form-group">
-        <label for="editName">Name</label>
-        <input type="text" class="form-control" id="editName" v-model="editedItem.name" />
+        <label for="description" class="form-label text-base">Description</label>
+        <textarea class="form-control" id="description" v-model="formData.description" required></textarea>
       </div>
       <div class="form-group">
-        <label for="editDescription">Description</label>
-        <textarea class="form-control" id="editDescription" v-model="editedItem.description"></textarea>
+        <label for="price" class="form-label text-base">Price</label>
+        <input type="text" class="form-control" id="price" v-model="formData.price" required>
       </div>
       <div class="form-group">
-        <label for="editPrice">Price</label>
-        <input type="number" class="form-control" id="editPrice" v-model="editedItem.price" />
+        <label for="image" class="form-label text-base">Image</label>
+        <input type="file" class="form-control" id="image" @change="handleFileChange">
       </div>
-      <button @click="updateMenuItem" class="btn btn-primary">Update</button>
-      <button @click="cancelUpdate" class="btn btn-secondary">Cancel</button>
-    </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { db } from '@/firebase';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { db, storage } from '@/firebase';
+import { collection, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import Dropdown from 'primevue/dropdown';
 
-const menuItems = ref([]);
-const showModal = ref(false);
-const editedItem = ref(null);
-
-onMounted(async () => {
-  const querySnapshot = await getDocs(collection(db, 'menuItems'));
-  menuItems.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+const selectedItem = ref(null);
+const formData = ref({
+  id: null,
+  category: null,
+  name: '',
+  description: '',
+  price: '',
+  image: null,
+  imageUrl: ''
 });
+const categories = [{ name: 'Appetizers' }, { name: 'Mains' }, { name: 'Desserts' }, { name: 'Drinks' }];
+const menuItems = ref([]);
 
-function editMenuItem(menuItem) {
-  editedItem.value = { ...menuItem };
-  showModal.value = true;
+async function fetchMenuItems() {
+  const querySnapshot = await getDocs(collection(db, 'menuItems'));
+  menuItems.value = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 }
 
-async function updateMenuItem() {
-  const menuItemRef = doc(db, 'menuItems', editedItem.value.id);
-  await updateDoc(menuItemRef, {
-    id: editedItem.value.id,
-    category: editedItem.value.category,
-    name: editedItem.value.name,
-    description: editedItem.value.description,
-    price: editedItem.value.price,
-  });
-  showModal.value = false;
+async function fetchMenuItem() {
+  if (selectedItem.value) {
+    const docRef = doc(collection(db, 'menuItems'), selectedItem.value.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      formData.value = { ...data, id: selectedItem.value.id, category: categories.find(cat => cat.name === data.category) };
+    } else {
+      alert("No such document!");
+    }
+  }
 }
 
-function cancelUpdate() {
-  showModal.value = false;
+function handleFileChange(event) {
+  formData.value.image = event.target.files[0];
 }
+
+async function handleSubmit() {
+  try {
+    const docRef = doc(collection(db, 'menuItems'), formData.value.id);
+    let imageUrl = formData.value.imageUrl;
+    if (formData.value.image) {
+      const imageRef = storageRef(storage, `menuItems/${formData.value.image.name}`);
+      const snapshot = await uploadBytes(imageRef, formData.value.image);
+      imageUrl = await getDownloadURL(snapshot.ref);
+    }
+    await updateDoc(docRef, {
+      category: formData.value.category.name,
+      name: formData.value.name,
+      description: formData.value.description,
+      price: formData.value.price,
+      image: imageUrl // Use the new image URL if uploaded, otherwise keep the existing one
+    });
+    alert("Item updated successfully!");
+  } catch (e) {
+    console.error("Error updating document: ", e);
+    alert("Error processing your request.");
+  }
+}
+
+onMounted(() => {
+  fetchMenuItems();
+});
 </script>
-
-<style scoped>
-/* Styles for the table and modal can be added here */
-</style>
