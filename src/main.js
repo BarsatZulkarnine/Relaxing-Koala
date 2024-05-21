@@ -1,8 +1,9 @@
-import { createApp } from 'vue';
-import store from './store/index'
-import App from './App.vue';
-import router from './router';
+import { createApp } from 'vue'; 
+import store from './store/index'  
+import App from './App.vue';  
+import router from './router'; 
 import './assets/styles.css'
+
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/saga-blue/theme.css'; 
 import 'primevue/resources/primevue.min.css'; 

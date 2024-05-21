@@ -1,11 +1,11 @@
 <template>
-  <div class="menu-item-form">
-    <form @submit.prevent="handleSubmit" class="form-grid">
+  <div >
+    <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="form-group">
-        <label for="name" class="form-label text-base">Name</label>
-        <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item" />
+        <label for="name" class="form-label text-base font-semibold">Name</label>
+        <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item" class="w-full p-2 border rounded-md shadow-sm" />
       </div>
-      <button type="submit" class="btn btn-primary">Delete</button>
+      <button type="submit" class="py-2 px-4 bg-blue-700 text-white rounded-md">Delete</button>
     </form>
   </div>
 </template>
@@ -29,7 +29,6 @@ async function handleSubmit() {
     const docRef = doc(collection(db, 'menuItems'), selectedItem.value.id);
     await deleteDoc(docRef);
     alert("Item deleted successfully!");
-    // Refresh the menu items
     fetchMenuItems();
   } catch (e) {
     console.error("Error deleting document: ", e);

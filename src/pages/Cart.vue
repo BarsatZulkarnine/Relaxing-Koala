@@ -144,9 +144,8 @@ const decrementQuantity = async (item) => {
 
 watchEffect(() => {
  
-  if (userData) {
+  if (userData && userData.uid)  {
     const uid = userData.uid.toString();
-    
     const userCartRef = doc(db, 'userCart', uid);
     getDoc(userCartRef).then((docSnap) => {
       if (docSnap.exists()) {

@@ -1,7 +1,6 @@
-// menu.js
 import { getDocs, collection } from 'firebase/firestore';
 import { ref as storageRef, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '@/firebase'; // Ensure the path is correct
+import { db, storage } from '@/firebase'; 
 
 const state = {
   menuItems: [],

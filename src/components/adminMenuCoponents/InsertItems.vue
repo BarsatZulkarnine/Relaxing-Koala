@@ -1,31 +1,31 @@
 <template>
-  <div class="menu-item-form">
-    <form @submit.prevent="handleSubmit" class="form-grid">
+  <div >
+    <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="form-group">
-        <label for="category" class="form-label text-base">Category</label>
-        <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category" />
+        <label for="category" class="form-label text-base font-semibold">Category</label>
+        <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category" class="w-full p-2 border rounded-md shadow-sm" />
       </div>
       <div class="form-group">
-        <label for="id" class="form-label text-base">ID</label>
-        <input type="number" class="form-control" id="id" v-model="formData.id" required>
+        <label for="id" class="form-label text-base font-semibold">ID</label>
+        <input type="number" class="form-control w-full p-2 border rounded-md shadow-sm" id="id" v-model="formData.id" required>
       </div>
       <div class="form-group">
-        <label for="name" class="form-label text-base">Name</label>
-        <input type="text" class="form-control" id="name" v-model="formData.name" required>
+        <label for="name" class="form-label text-base font-semibold">Name</label>
+        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm" id="name" v-model="formData.name" required>
       </div>
       <div class="form-group">
-        <label for="description" class="form-label text-base">Description</label>
-        <textarea class="form-control" id="description" v-model="formData.description" required></textarea>
+        <label for="description" class="form-label text-base font-semibold">Description</label>
+        <textarea class="form-control w-full p-2 border rounded-md shadow-sm" id="description" v-model="formData.description" required></textarea>
       </div>
       <div class="form-group">
-        <label for="price" class="form-label text-base">Price</label>
-        <input type="text" class="form-control" id="price" v-model="formData.price" required>
+        <label for="price" class="form-label text-base font-semibold">Price</label>
+        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm" id="price" v-model="formData.price" required>
       </div>
       <div class="form-group">
-        <label for="image" class="form-label text-base">Image</label>
-        <input type="file" class="form-control" id="image" @change="handleFileChange" required>
+        <label for="image" class="form-label text-base font-semibold">Image</label>
+        <input type="file" class="form-control w-full p-2 border rounded-md shadow-sm" id="image" @change="handleFileChange" required>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="py-2 px-4 bg-blue-700 text-white rounded-md">Submit</button>
     </form>
   </div>
 </template>
