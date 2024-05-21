@@ -12,13 +12,13 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           <router-link v-for="item in paginatedItems" :key="item.id"
             :to="{ name: 'menuItem', params: { itemId: item.id } }">
-            <div class="bg-white rounded-lg shadow-lg dark:bg-gray-950 dark:shadow-none cursor-pointer">
+            <div class="bg-white rounded-lg shadow-lg cursor-pointer">
               <img :src="item.image" :alt="item.name" class="rounded-t-lg object-cover w-full h-48" />
               <div class="p-4">
                 <h3 class="text-lg font-bold mb-2">{{ item.name }}</h3>
-                <p class="text-gray-500 dark:text-gray-400 mb-4">{{ item.description }}</p>
+                <p class="text-gray-500 mb-4">{{ item.description }}</p>
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-gray-900 dark:text-gray-50">{{ item.price }}</span>
+                  <span class="font-bold text-gray-900">{{ item.price }}</span>
                   <Button label="Order" class="p-button-outlined" />
                 </div>
               </div>
