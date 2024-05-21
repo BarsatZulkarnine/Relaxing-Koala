@@ -25,7 +25,6 @@
             </div>
           </router-link>
         </div>
-        <!-- Pagination Controls -->
         <div class="flex justify-center items-center mt-6">
           <Button :disabled="currentPage === 1" @click="prevPage" class="font-bold">Previous</Button>
           <span class="mx-4 font-bold">{{ currentPage }} / {{ totalPages }}</span>
@@ -42,7 +41,7 @@ import Button from 'primevue/button';
 import { useStore } from 'vuex';
 
 const filters = ['Appetizers', 'Mains', 'Desserts', 'Drinks'];
-const activeFilter = ref(null);  // No default category
+const activeFilter = ref(null);
 const currentPage = ref(1);
 const itemsPerPage = 8;
 
@@ -51,16 +50,16 @@ const menuItems = computed(() => store.state.menu.menuItems);
 
 const setActiveFilter = (filter) => {
   if (activeFilter.value === filter) {
-    activeFilter.value = null;  // Deactivate filter if it's already active
+    activeFilter.value = null;
   } else {
     activeFilter.value = filter;
   }
-  currentPage.value = 1;  // Reset to the first page whenever the filter changes
+  currentPage.value = 1;
 };
 
 const filteredItems = computed(() => {
   if (!activeFilter.value) {
-    return menuItems.value;  // Return all items if no filter is active
+    return menuItems.value;
   }
   return menuItems.value.filter(item => item.category === activeFilter.value);
 });

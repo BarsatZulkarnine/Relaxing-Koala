@@ -2,28 +2,32 @@
   <div class="">
     <form @submit.prevent="handleSubmit" class=" space-y-4">
 
-  <div class="form-group">
-    <label for="name" class="form-label text-base font-semibold">Name</label>
-    <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item" @change="fetchMenuItem" class="w-full p-2 border rounded-md shadow-sm " />
-  </div>
-  <div class="form-group">
-    <label for="category" class="form-label text-base font-semibold">Category</label>
-    <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category" class="w-full p-2 border rounded-md shadow-sm " />
-  </div>
-  <div class="form-group">
-    <label for="description" class="form-label text-base font-semibold">Description</label>
-    <textarea class="form-control w-full p-2 border rounded-md shadow-sm " id="description" v-model="formData.description" required></textarea>
-  </div>
-  <div class="form-group">
-    <label for="price" class="form-label text-base font-semibold">Price</label>
-    <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm " id="price" v-model="formData.price" required>
-  </div>
-  <div class="form-group">
-    <label for="image" class="form-label text-base font-semibold">Image</label>
-    <input type="file" class="form-control  p-2 border rounded-md shadow-sm " id="image" @change="handleFileChange">
-  </div>
-  <button type="submit" class="py-2 px-4 bg-blue-700 text-white rounded-md ">Update</button>
-</form>
+      <div class="form-group">
+        <label for="name" class="form-label text-base font-semibold">Name</label>
+        <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item"
+          @change="fetchMenuItem" class="w-full p-2 border rounded-md shadow-sm " />
+      </div>
+      <div class="form-group">
+        <label for="category" class="form-label text-base font-semibold">Category</label>
+        <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category"
+          class="w-full p-2 border rounded-md shadow-sm " />
+      </div>
+      <div class="form-group">
+        <label for="description" class="form-label text-base font-semibold">Description</label>
+        <textarea class="form-control w-full p-2 border rounded-md shadow-sm " id="description"
+          v-model="formData.description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price" class="form-label text-base font-semibold">Price</label>
+        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm " id="price"
+          v-model="formData.price" required>
+      </div>
+      <div class="form-group">
+        <label for="image" class="form-label text-base font-semibold">Image</label>
+        <input type="file" class="form-control  p-2 border rounded-md shadow-sm " id="image" @change="handleFileChange">
+      </div>
+      <button type="submit" class="py-2 px-4 bg-blue-700 text-white rounded-md ">Update</button>
+    </form>
 
   </div>
 </template>
@@ -84,7 +88,7 @@ async function handleSubmit() {
       name: formData.value.name,
       description: formData.value.description,
       price: formData.value.price,
-      image: imageUrl // Use the new image URL if uploaded, otherwise keep the existing one
+      image: imageUrl 
     });
     alert("Item updated successfully!");
   } catch (e) {

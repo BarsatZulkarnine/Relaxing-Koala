@@ -32,45 +32,26 @@
         <form class="space-y-4" @submit.prevent="submitCheckout">
           <div>
             <label class="block mb-1 font-medium" for="name">Full Name</label>
-            <input
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              id="name"
-              placeholder="Enter your full name"
-              type="text"
-              v-model="fullName"
-              required
-              aria-label="Full Name"
-            />
+            <input class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              id="name" placeholder="Enter your full name" type="text" v-model="fullName" required
+              aria-label="Full Name" />
           </div>
           <div>
             <label class="block mb-1 font-medium" for="phone">Phone Number</label>
-            <input
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              id="phone"
-              placeholder="Enter your phone number"
-              type="tel"
-              v-model="phoneNumber"
-              required
-              aria-label="Phone Number"
-            />
+            <input class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              id="phone" placeholder="Enter your phone number" type="tel" v-model="phoneNumber" required
+              aria-label="Phone Number" />
           </div>
           <div>
             <label class="block mb-1 font-medium" for="address">Address</label>
-            <textarea
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              id="address"
-              placeholder="Enter your delivery address"
-              rows="3"
-              v-model="address"
-              required
-              aria-label="Address"
-            ></textarea>
+            <textarea class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              id="address" placeholder="Enter your delivery address" rows="3" v-model="address" required
+              aria-label="Address"></textarea>
           </div>
           <div class="flex justify-end">
             <button
               class="btn border-t-zinc-600 hover:bg-primary-600 text-black font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-              type="submit"
-            >
+              type="submit">
               Confirm Checkout
             </button>
           </div>
@@ -95,7 +76,7 @@ const address = ref('');
 const userData = store.getters.userData;
 
 const incrementQuantity = async (item) => {
-  
+
   if (userData) {
     const uid = userData.uid.toString();
     const userCartRef = doc(db, 'userCart', uid);
@@ -107,7 +88,6 @@ const incrementQuantity = async (item) => {
         if (existingCart[item.id]) {
           existingCart[item.id].quantity++;
           await updateDoc(userCartRef, existingCart);
-          // Update local cartItems array
           cartItems.value = Object.values(existingCart);
           total.value = cartItems.value.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         }
@@ -119,8 +99,8 @@ const incrementQuantity = async (item) => {
 };
 
 const decrementQuantity = async (item) => {
-  
-  if (userData ) {
+
+  if (userData) {
     const uid = userData.uid.toString();
     const userCartRef = doc(db, 'userCart', uid);
 
@@ -131,7 +111,6 @@ const decrementQuantity = async (item) => {
         if (existingCart[item.id] && existingCart[item.id].quantity > 1) {
           existingCart[item.id].quantity--;
           await updateDoc(userCartRef, existingCart);
-          // Update local cartItems array
           cartItems.value = Object.values(existingCart);
           total.value = cartItems.value.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         }
@@ -143,8 +122,8 @@ const decrementQuantity = async (item) => {
 };
 
 watchEffect(() => {
- 
-  if (userData && userData.uid)  {
+
+  if (userData && userData.uid) {
     const uid = userData.uid.toString();
     const userCartRef = doc(db, 'userCart', uid);
     getDoc(userCartRef).then((docSnap) => {
@@ -171,13 +150,12 @@ const submitCheckout = async () => {
 
   if (userData) {
     const uid = userData.uid.toString();
-    
+
     const userCartRef = doc(db, 'userCart', uid);
     try {
       const userCartSnapshot = await getDoc(userCartRef);
       if (userCartSnapshot.exists()) {
         const existingCart = userCartSnapshot.data();
-        // Add order to 'orders' collection
         const orderRef = collection(db, 'orders');
         await addDoc(orderRef, {
           userId: uid,
@@ -188,8 +166,6 @@ const submitCheckout = async () => {
           total: total.value,
           date: Timestamp.fromDate(new Date())
         });
-
-        // Clear the cart after placing the order
         const userCartRef = doc(db, 'userCart', uid);
         await setDoc(userCartRef, {});
 
@@ -202,4 +178,3 @@ const submitCheckout = async () => {
 };
 
 </script>
-
