@@ -97,8 +97,6 @@ const addToCart = async () => {
       const initialCart = { [item.value.id]: newItem };
       await setDoc(userCartRef, initialCart);
     }
-
-    //store.commit('cart/addToCart', item.value);
     router.push('/cart');
   } catch (error) {
     console.error('Error adding item to cart: ', error);

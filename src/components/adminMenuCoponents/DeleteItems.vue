@@ -1,9 +1,10 @@
 <template>
-  <div >
+  <div>
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="form-group">
         <label for="name" class="form-label text-base font-semibold">Name</label>
-        <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item" class="w-full p-2 border rounded-md shadow-sm" />
+        <Dropdown v-model="selectedItem" :options="menuItems" optionLabel="name" placeholder="Select a menu item"
+          class="w-full p-2 border rounded-md shadow-sm" />
       </div>
       <button type="submit" class="py-2 px-4 bg-blue-700 text-white rounded-md">Delete</button>
     </form>

@@ -9,21 +9,18 @@
           </router-link>
         </div>
         <nav class="grid items-start px-4 pl-16 text-sm font-medium">
-          <!-- Other existing links -->
           <router-link
             class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900  "
             to="#" @click="activeComponent = 'orders'">
             <font-awesome-icon icon="shopping-cart" class="h-4 w-4" />
             Order Management
           </router-link>
-          <!-- Add click handlers to other links to set activeComponent -->
           <router-link
             class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 "
             to="#" @click="activeComponent = 'menuManagement'">
             <font-awesome-icon icon="utensils" class="h-4 w-4" />
             Menu Management
           </router-link>
-          <!-- Replace the 'router-link' for Reporting with 'a' tag -->
           <router-link
             class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900  cursor-not-allowed"
             to="#" @click.prevent>
@@ -42,9 +39,9 @@
 <script setup>
 import { ref } from 'vue'
 import { defineAsyncComponent } from 'vue'
- 
 
-const activeComponent = ref('dashboard'); // Default active component
+
+const activeComponent = ref('dashboard');
 
 const dashboardComponent = defineAsyncComponent(() => import('@/components/AdminDashboard.vue'));
 const menuManagementComponent = defineAsyncComponent(() => import('@/components/AdminMenuManagement.vue'));

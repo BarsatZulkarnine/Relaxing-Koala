@@ -1,29 +1,35 @@
 <template>
-  <div >
+  <div>
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="form-group">
         <label for="category" class="form-label text-base font-semibold">Category</label>
-        <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category" class="w-full p-2 border rounded-md shadow-sm" />
+        <Dropdown v-model="formData.category" :options="categories" optionLabel="name" placeholder="Select a category"
+          class="w-full p-2 border rounded-md shadow-sm" />
       </div>
       <div class="form-group">
         <label for="id" class="form-label text-base font-semibold">ID</label>
-        <input type="number" class="form-control w-full p-2 border rounded-md shadow-sm" id="id" v-model="formData.id" required>
+        <input type="number" class="form-control w-full p-2 border rounded-md shadow-sm" id="id" v-model="formData.id"
+          required>
       </div>
       <div class="form-group">
         <label for="name" class="form-label text-base font-semibold">Name</label>
-        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm" id="name" v-model="formData.name" required>
+        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm" id="name" v-model="formData.name"
+          required>
       </div>
       <div class="form-group">
         <label for="description" class="form-label text-base font-semibold">Description</label>
-        <textarea class="form-control w-full p-2 border rounded-md shadow-sm" id="description" v-model="formData.description" required></textarea>
+        <textarea class="form-control w-full p-2 border rounded-md shadow-sm" id="description"
+          v-model="formData.description" required></textarea>
       </div>
       <div class="form-group">
         <label for="price" class="form-label text-base font-semibold">Price</label>
-        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm" id="price" v-model="formData.price" required>
+        <input type="text" class="form-control w-full p-2 border rounded-md shadow-sm" id="price"
+          v-model="formData.price" required>
       </div>
       <div class="form-group">
         <label for="image" class="form-label text-base font-semibold">Image</label>
-        <input type="file" class="form-control w-full p-2 border rounded-md shadow-sm" id="image" @change="handleFileChange" required>
+        <input type="file" class="form-control w-full p-2 border rounded-md shadow-sm" id="image"
+          @change="handleFileChange" required>
       </div>
       <button type="submit" class="py-2 px-4 bg-blue-700 text-white rounded-md">Submit</button>
     </form>
@@ -34,7 +40,7 @@
 
 
 import { ref } from 'vue';
-import { db, storage } from '@/firebase'; 
+import { db, storage } from '@/firebase';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Dropdown from 'primevue/dropdown';

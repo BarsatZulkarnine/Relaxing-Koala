@@ -72,7 +72,8 @@ const nextPage = () => {
   border-collapse: collapse;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 8px;
   border: 1px solid #ddd;
 }

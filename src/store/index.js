@@ -27,7 +27,7 @@ export default createStore({
       commit('setSignIn', { status, userData });
     },
     signOut({ commit }) {
-      commit('setSignIn', { status: false, userData: {} }); // Update isSignedIn to false and userData to an empty object
+      commit('setSignIn', { status: false, userData: {} }); 
     }
   },
   getters: {
