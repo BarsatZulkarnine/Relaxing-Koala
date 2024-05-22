@@ -7,6 +7,7 @@ import Menu from '@/pages/Menu.vue';
 import Admin from '@/pages/Admin.vue';
 import store from '../store/index'; 
 import Cart from '@/pages/Cart.vue';
+import Review from '@/pages/Reviews.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +50,12 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: Cart,
+      meta: { showNav: true }
+    },
+    {
+      path: '/reviews',
+      name: 'reviews',
+      component: Review,
       meta: { showNav: true }
     }
   ]

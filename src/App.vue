@@ -8,7 +8,7 @@
     <nav class="ml-auto flex gap-4 sm:gap-6">
       <router-link class="text-base font-medium hover:underline underline-offset-4" to="/menu">Menu</router-link>
       <router-link class="text-base font-medium hover:underline underline-offset-4" to="/cart">Cart</router-link>
-      <router-link class="text-base font-medium hover:underline underline-offset-4" to="/">Contact</router-link>
+      <router-link class="text-base font-medium hover:underline underline-offset-4" to="/reviews">Reviews</router-link>
 
       <router-link v-if="!isSignedIn" class="text-base font-medium hover:underline underline-offset-4" to="/signin">Sign
         In</router-link>
