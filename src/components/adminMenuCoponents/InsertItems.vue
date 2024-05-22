@@ -66,7 +66,6 @@ async function handleSubmit() {
   }
 
   try {
-    // Check if ID already exists
     const q = query(collection(db, 'menuItems'), where('id', '==', formData.value.id.toString()));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
@@ -76,11 +75,11 @@ async function handleSubmit() {
 
     const imageRef = storageRef(storage, `menuItems/${formData.value.image.name}`);
 
-    // Upload the file and metadata
     const snapshot = await uploadBytes(imageRef, formData.value.image);
+    console.log("Uploaded a blob or file!", snapshot);
     const imageUrl = await getDownloadURL(snapshot.ref);
+    console.log("image url: ", imageUrl);
 
-    // Add data to Firestore
     const docRef = await addDoc(collection(db, 'menuItems'), {
       id: formData.value.id.toString(),
       category: formData.value.category.name,
@@ -90,7 +89,6 @@ async function handleSubmit() {
       image: imageUrl
     });
 
-    // Clear the form or give feedback
     console.log("Document written with ID: ", docRef.id);
     alert("Item added successfully!");
     formData.value = { id: null, category: null, name: '', description: '', price: '', image: null };
