@@ -55,27 +55,3 @@ export default createStore({
 
 
 
-
-
-
-
-
-
-
-/*
-
-// store/index.js
-import { createStore } from 'vuex';
-import menu from './modules/menu';
-import userData from './modules/userData';
-import auth from './modules/auth';
-
-export default createStore({
-  modules: {
-    menu,
-    userData,
-    auth
-  }
-});
-
-*/

@@ -91,6 +91,8 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import { db } from '@/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Footer from '@/components/Footer.vue';
@@ -117,6 +119,13 @@ function validateReservation() {
 }
 
 async function submitReservation() {
+  try {
+    await addDoc(collection(db, 'reservations'), reservation.value);
+    alert('Reservation successful!');
+  } catch (error) {
+    console.error('Error saving reservation: ', error);
+    alert('Error saving reservation.');
+  }
 }
 
 const dishes = computed(() => {

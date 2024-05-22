@@ -3,14 +3,14 @@
     <h1 class="text-2xl font-bold mb-4">Orders</h1>
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-else class="border rounded-lg overflow-hidden">
-      <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 font-medium">
+      <div class="bg-gray-100 px-4 py-3 font-medium">
         Order Data
       </div>
-      <div class="divide-y dark:divide-gray-700">
+      <div class="divide-y">
         <div v-for="order in orders" :key="order.id" class="grid grid-cols-[1fr_80px_80px] items-center px-4 py-3">
           <div>
             <h3 class="font-serif font-medium">{{ order.fullName }}</h3>
-            <p class="font-serif text-gray-500 dark:text-gray-400 text-sm">
+            <p class="font-serif text-gray-500 text-sm">
               {{ order.address }}
             </p>
           </div>

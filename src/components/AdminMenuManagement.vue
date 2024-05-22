@@ -40,7 +40,7 @@ const currentTab = ref('view');
 const units = ref([]);
 
 const addUnit = (newUnit) => {
-  units.value.push({ ...newUnit }); // Use a spread to ensure reactivity if necessary
+  units.value.push({ ...newUnit });
 };
 
 onMounted(() => {
